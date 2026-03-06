@@ -740,7 +740,7 @@ footer { background:var(--bg); border-top:1px solid var(--border); padding:var(-
           <div class="hstat-lbl">Publications</div>
         </div>
         <div class="hstat">
-          <div class="hstat-num">21</div>
+          <div class="hstat-num" id="age-stat">21</div>
           <div class="hstat-lbl">Age & Shipping</div>
         </div>
       </div>
@@ -823,7 +823,7 @@ footer { background:var(--bg); border-top:1px solid var(--border); padding:var(-
         <div class="about-text">
           <p>Passionate <strong>ASP.NET Developer</strong> at <a href="https://webdigitronix.com" target="_blank">Webdigitronix</a>, Lucknow — specializing in scalable web systems, Razor-driven UIs, and MSSQL-backed architectures that serve real users in production every single day.</p>
           <p>Beyond shipping code, I research, teach, and lead. Two peer-reviewed papers published while still in my undergraduate BCA program — one on cybersecurity phishing, another on A* pathfinding for autonomous vehicles. I refused to wait until graduation to build real things.</p>
-          <p>A developer shaped by curiosity, structured thinking, and a relentless bias toward production-grade work. Currently at <strong>21 years old</strong>, shipping live projects and still growing fast.</p>
+          <p>A developer shaped by curiosity, structured thinking, and a relentless bias toward production-grade work. Currently at <strong><span id="age-text">21</span> years old</strong>, shipping live projects and still growing fast.</p>
         </div>
         <div class="info-table">
           <div class="info-row"><span class="info-key">Name</span><span class="info-val">Ashwani Dwivedi</span></div>
@@ -1889,7 +1889,19 @@ const statObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 if (statEls.length) statObs.observe(statEls[0].closest('section') || statEls[0]);
-
+/* ══ DYNAMIC AGE ══ */
+(function() {
+  const birth = new Date('2003-08-06');
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const notYet = today.getMonth() < birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() < birth.getDate());
+  if (notYet) age--;
+  const s = document.getElementById('age-stat');
+  const t = document.getElementById('age-text');
+  if (s) s.textContent = age;
+  if (t) t.textContent = age;
+})();
 </script>
 </body>
 </html>
